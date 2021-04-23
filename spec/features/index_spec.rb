@@ -19,10 +19,10 @@ RSpec.describe 'flights index page', type: :feature do
     FlightPassenger.create!(flight: @flight1, passenger: @passenger3)
     FlightPassenger.create!(flight: @flight2, passenger: @passenger4)
     FlightPassenger.create!(flight: @flight2, passenger: @passenger5)
-    FlightPassenger.create!(flight: @flight3, passenger: @passenger1)
     FlightPassenger.create!(flight: @flight3, passenger: @passenger2)
     FlightPassenger.create!(flight: @flight3, passenger: @passenger3)
     FlightPassenger.create!(flight: @flight3, passenger: @passenger4)
+    FlightPassenger.create!(flight: @flight3, passenger: @passenger5)
   end
 
   it 'flight index page has each flight listed with its attributes' do
@@ -37,5 +37,17 @@ RSpec.describe 'flights index page', type: :feature do
     expect(page).to have_content(@passenger2.name)
 
     expect(page).to have_content(@flight1.airline.name)
+  end
+
+  it 'shows Remove button that upon click removes a passenger from the flight' do
+    visit "/flights"
+
+    within "#passenger-#{@passenger1.id}" do
+      click_on "Remove"
+
+      expect(current_path).to eq("/flights")
+      expect(page).to_not have_content("* #{@passenger1.name}")
+    end
+
   end
 end
