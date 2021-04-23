@@ -31,9 +31,10 @@ RSpec.describe Airline, type: :model do
     FlightPassenger.create!(flight: @flight3, passenger: @passenger5)
   end
 
-  describe '.passenger_unique' do
-    it 'lists unique passengers' do
-      expect(Passenger.count).to eq(5)
+  describe 'methods' do
+    it 'lists adult and unique passengers' do
+      expect(@airline1.adult_passengers.count).to eq(3)
     end
+
   end
 end
