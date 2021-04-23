@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'flights index page', type: :feature do
   before :each do
-    @airline = create(:airline)
+    @airline1 = create(:airline)
+    @airline2 = create(:airline)
 
-    @flight1 = create(:flight, airline: @airline)
-    @flight2 = create(:flight, airline: @airline)
-    @flight3 = create(:flight, airline: @airline)
+    @flight1 = create(:flight, airline: @airline1)
+    @flight2 = create(:flight, airline: @airline1)
+    @flight3 = create(:flight, airline: @airline2)
 
     @passenger1 = create(:passenger)
     @passenger2 = create(:passenger)
@@ -29,24 +30,41 @@ RSpec.describe 'flights index page', type: :feature do
     visit "/flights"
 
     expect(page).to have_content('Flights')
-    expect(page).to have_content(@flight1.number)
-    expect(page).to have_content(@flight2.number)
-    expect(page).to have_content(@flight3.number)
 
-    expect(page).to have_content(@passenger1.name)
-    expect(page).to have_content(@passenger2.name)
+    within "#flight-#{@flight1.id}" do
+      expect(page).to have_content(@flight1.number)
 
-    expect(page).to have_content(@flight1.airline.name)
+      expect(page).to have_content(@flight1.airline.name)
+
+      expect(page).to have_content(@passenger1.name)
+      expect(page).to have_content(@passenger2.name)
+      expect(page).to have_content(@passenger3.name)
+    end
+
+    within "#flight-#{@flight3.id}" do
+      expect(page).to have_content(@flight3.number)
+
+      expect(page).to have_content(@passenger2.name)
+      expect(page).to have_content(@passenger3.name)
+      expect(page).to have_content(@passenger4.name)
+      expect(page).to have_content(@passenger5.name)
+
+      expect(page).to have_content(@flight3.airline.name)
+    end
   end
 
   it 'shows Remove button that upon click removes a passenger from the flight' do
     visit "/flights"
 
-    within "#passenger-#{@passenger1.id}" do
-      click_on "Remove"
+    within "#flight-#{@flight1.id}" do
+      within "#passenger-#{@passenger1.id}" do
+        # save_and_open_page
+        click_on "Remove"
 
-      expect(current_path).to eq("/flights")
-      expect(page).to_not have_content("* #{@passenger1.name}")
+        expect(current_path).to eq("/flights")
+        expect(page).to_not have_content(@passenger1.name)
+
+      end
     end
   end
 end
