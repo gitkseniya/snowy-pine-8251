@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_174117) do
+ActiveRecord::Schema.define(version: 2021_04_23_144301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,23 +21,15 @@ ActiveRecord::Schema.define(version: 2021_04_21_174117) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "doctor_surgeries", force: :cascade do |t|
-    t.bigint "doctor_id"
-    t.bigint "surgery_id"
-    t.index ["doctor_id"], name: "index_doctor_surgeries_on_doctor_id"
-    t.index ["surgery_id"], name: "index_doctor_surgeries_on_surgery_id"
-  end
-
-  create_table "doctors", force: :cascade do |t|
-    t.string "name"
-    t.integer "years_practiced"
-    t.string "uni"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "flight_passengers", force: :cascade do |t|
+    t.bigint "flight_id"
+    t.bigint "passenger_id"
+    t.index ["flight_id"], name: "index_flight_passengers_on_flight_id"
+    t.index ["passenger_id"], name: "index_flight_passengers_on_passenger_id"
   end
 
   create_table "flights", force: :cascade do |t|
-    t.string "number"
+    t.integer "number"
     t.string "date"
     t.string "departure_city"
     t.string "arrival_city"
@@ -45,15 +37,12 @@ ActiveRecord::Schema.define(version: 2021_04_21_174117) do
     t.index ["airline_id"], name: "index_flights_on_airline_id"
   end
 
-  create_table "surgeries", force: :cascade do |t|
-    t.string "title"
-    t.string "day"
-    t.integer "room"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "passengers", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
   end
 
-  add_foreign_key "doctor_surgeries", "doctors"
-  add_foreign_key "doctor_surgeries", "surgeries"
+  add_foreign_key "flight_passengers", "flights"
+  add_foreign_key "flight_passengers", "passengers"
   add_foreign_key "flights", "airlines"
 end

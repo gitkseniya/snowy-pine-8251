@@ -41,7 +41,12 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'pry'
+  gem 'simplecov'
+  gem 'orderly'
 end
+
+gem 'factory_bot_rails'
+gem 'faker'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
