@@ -58,13 +58,11 @@ RSpec.describe 'flights index page', type: :feature do
 
     within "#flight-#{@flight1.id}" do
       within "#passenger-#{@passenger1.id}" do
-        # save_and_open_page
         click_on "Remove"
-
         expect(current_path).to eq("/flights")
-        expect(page).to_not have_content(@passenger1.name)
-
       end
+
+        expect(page).to_not have_content(@passenger1.name)
     end
   end
 end
