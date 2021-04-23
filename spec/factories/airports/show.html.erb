@@ -1,0 +1,11 @@
+<a href="/airports">Back to All Airports</a>
+<a href="/airlines">Airlines</a>
+
+<h2><%= @airport.name %></h2>
+<p><%= "Number of Terminals: #{@airport.terminals}" %></p>
+<p><%= "International Hub: #{@airport.international_hub}" %></p>
+<p><%= "Created At: #{@airport.created_at}" %></p>
+<p><%= "Updated At: #{@airport.updated_at}" %></p>
+
+<h3><a href="/airports/airports/<%=@airport.id%>/airlines">Airlines At This Airport (<%=@airport.airlines.count%>)</a></h3>
+<a href="/airports/<%=@airport.id%>/edit">Update Airport</a>

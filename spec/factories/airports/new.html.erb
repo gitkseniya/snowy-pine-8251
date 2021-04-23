@@ -1,0 +1,11 @@
+<%= form_with url: "/airports", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br/>
+  <br/>
+  <%= form.label :terminals %>
+  <%= form.text_field :terminals %><br/>
+  <br/>
+  <%= form.label :international_hub %>
+  <%= form.text_field :international_hub %>
+  <%= form.submit 'Create Airport' %>
+<% end %>

@@ -1,0 +1,10 @@
+<a href="/airlines">Airlines</a>
+
+<h1>United States Airports</h1>
+<br>
+<% @airports.each do |airport| %>
+  <h3><a href="/airports/<%= airport.id %>"><%= airport.name %></a></h3>
+  <p><%= "Created #{airport.created_at}" %></p>
+<% end %>
+
+<%= link_to 'New Airport', '/airports/new' %>
