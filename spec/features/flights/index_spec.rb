@@ -48,6 +48,5 @@ RSpec.describe 'flights index page', type: :feature do
       expect(current_path).to eq("/flights")
       expect(page).to_not have_content("* #{@passenger1.name}")
     end
-
   end
 end
